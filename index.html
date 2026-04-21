@@ -25,6 +25,14 @@
     --green: #1D9E75;
     --green-light: #5DE09C;
     --red: #E24B4A;
+
+    /* === Premium AI palette (NexaCore-inspired) === */
+    --violet: #6E4BFF;        /* deep premium violet */
+    --violet-deep: #3B1F8F;   /* darker anchor */
+    --indigo: #2B5FFF;        /* trust blue */
+    --amber: #FFB547;         /* warmth / appetite */
+    --amber-soft: #FFD88A;
+    --ember: #FF6A3D;         /* orange lens-flare */
   }
   html { scroll-behavior: smooth; }
   body {
@@ -302,9 +310,10 @@
     filter: blur(80px); opacity: .85;
     border-radius: 50%;
   }
-  .mesh-a { width: 520px; height: 520px; background: var(--wb); top: -10%; left: -10%; animation: meshA 18s ease-in-out infinite; }
-  .mesh-b { width: 620px; height: 620px; background: var(--wb-purple); top: 20%; right: -15%; animation: meshB 22s ease-in-out infinite; }
-  .mesh-c { width: 420px; height: 420px; background: var(--wb-mid); bottom: -20%; left: 25%; animation: meshC 16s ease-in-out infinite; }
+  .mesh-a { width: 620px; height: 620px; background: var(--violet); top: -12%; left: -12%; animation: meshA 18s ease-in-out infinite; opacity: .95; }
+  .mesh-b { width: 680px; height: 680px; background: var(--indigo); top: 15%; right: -18%; animation: meshB 22s ease-in-out infinite; opacity: .8; }
+  .mesh-c { width: 520px; height: 520px; background: var(--amber); bottom: -22%; left: 30%; animation: meshC 16s ease-in-out infinite; opacity: .65; }
+  .mesh-d { width: 340px; height: 340px; background: var(--ember); top: 45%; right: 10%; animation: meshA 20s ease-in-out infinite reverse; opacity: .45; filter: blur(90px); border-radius: 50%; position: absolute; z-index: 0; }
   .grid-bg {
     position: absolute; inset: 0; z-index: 1;
     background-image:
@@ -1097,6 +1106,142 @@
   @media (hover: hover) and (pointer: fine) {
     .cursor-dot { display: block; }
   }
+
+  /* ============ [NEW] RADIAL FAN RAYS (NexaCore-style light beams in hero) ============ */
+  @keyframes raysRotate { to { transform: translate(-50%, 0) rotate(360deg); } }
+  @keyframes raysPulse  { 0%, 100% { opacity: .55; } 50% { opacity: .85; } }
+  .rays {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: min(1600px, 140vw);
+    height: min(1600px, 140vw);
+    z-index: 1;
+    pointer-events: none;
+    background:
+      conic-gradient(
+        from 210deg at 50% 50%,
+        transparent 0deg,
+        rgba(110,75,255,.22) 14deg,
+        transparent 28deg,
+        rgba(43,95,255,.18) 44deg,
+        transparent 62deg,
+        rgba(255,181,71,.26) 86deg,
+        transparent 106deg,
+        rgba(255,106,61,.18) 122deg,
+        transparent 140deg,
+        rgba(203,17,171,.16) 158deg,
+        transparent 178deg,
+        rgba(110,75,255,.2) 198deg,
+        transparent 220deg,
+        rgba(43,95,255,.14) 246deg,
+        transparent 268deg,
+        rgba(255,181,71,.18) 292deg,
+        transparent 312deg,
+        rgba(110,75,255,.16) 336deg,
+        transparent 360deg
+      );
+    -webkit-mask: radial-gradient(circle at 50% 35%, #000 10%, rgba(0,0,0,.8) 30%, transparent 75%);
+            mask: radial-gradient(circle at 50% 35%, #000 10%, rgba(0,0,0,.8) 30%, transparent 75%);
+    filter: blur(16px);
+    animation: raysRotate 90s linear infinite, raysPulse 8s ease-in-out infinite;
+    opacity: .7;
+  }
+  .rays::after {
+    /* hot core flare */
+    content: "";
+    position: absolute;
+    left: 50%; top: 38%;
+    transform: translate(-50%, -50%);
+    width: 34%; height: 34%;
+    background: radial-gradient(circle, rgba(255,216,138,.6), rgba(255,181,71,.25) 35%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(20px);
+    animation: raysPulse 5s ease-in-out infinite;
+  }
+
+  /* ============ [NEW] HERO BOTTOM WAVE ============ */
+  .hero-wave {
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    width: 100%;
+    height: 140px;
+    z-index: 3;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-wave svg { width: 100%; height: 100%; display: block; }
+
+  /* ============ [NEW] AI ORB (particle visualization) ============ */
+  @keyframes orbSpin { to { transform: rotate(360deg); } }
+  @keyframes orbSpinRev { to { transform: rotate(-360deg); } }
+  @keyframes orbGlow { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: .9; transform: scale(1.08); } }
+  @keyframes orbFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .ai-orb-wrap {
+    display: flex; align-items: center; justify-content: center;
+    padding: 32px 0;
+    position: relative;
+    animation: orbFloat 6s ease-in-out infinite;
+  }
+  .ai-orb {
+    position: relative;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+  }
+  .ai-orb::before,
+  .ai-orb::after {
+    content: "";
+    position: absolute; inset: -20px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .ai-orb::before {
+    background: radial-gradient(circle at 50% 50%, rgba(255,181,71,.35), rgba(110,75,255,.2) 40%, transparent 72%);
+    filter: blur(16px);
+    animation: orbGlow 4.5s ease-in-out infinite;
+  }
+  .ai-orb::after {
+    background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(43,95,255,.18) 55%, transparent 80%);
+    filter: blur(28px);
+    animation: orbGlow 6s ease-in-out infinite reverse;
+  }
+  .ai-orb svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .ai-orb .ring-a { animation: orbSpin 22s linear infinite; transform-origin: 50% 50%; }
+  .ai-orb .ring-b { animation: orbSpinRev 32s linear infinite; transform-origin: 50% 50%; }
+  .ai-orb .ring-c { animation: orbSpin 14s linear infinite; transform-origin: 50% 50%; }
+  .ai-orb .core {
+    animation: orbGlow 3s ease-in-out infinite;
+    transform-origin: 50% 50%;
+  }
+  .ai-orb-label {
+    position: absolute; bottom: 6px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    white-space: nowrap;
+  }
+
+  /* ============ [NEW] SECTION WAVE DIVIDER ============ */
+  .sec-wave {
+    position: relative;
+    height: 120px;
+    margin: -60px 0 -60px;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .sec-wave svg { width: 100%; height: 100%; display: block; }
+
+  /* ============ [NEW] Shift ticker accents to new palette ============ */
+  .ticker { border-color: var(--amber); }
+  .ticker-track .hl { color: var(--amber); }
+  .ticker-track .sep { color: var(--violet); }
+
+  /* Soften hero coins so they don't compete with rays */
+  .coins { opacity: .35; }
 </style>
 </head>
 <body>
@@ -1119,6 +1264,8 @@
   <div class="mesh mesh-a"></div>
   <div class="mesh mesh-b"></div>
   <div class="mesh mesh-c"></div>
+  <div class="mesh-d"></div>
+  <div class="rays" aria-hidden="true"></div>
   <div class="grid-bg"></div>
   <div class="coins" id="coins"></div>
 
@@ -1152,6 +1299,27 @@
       <div class="hc-row"><span class="hc-label"><span class="hc-dot warn"></span>Без ответа</span><span class="hc-val">17</span></div>
       <div class="hc-row"><span class="hc-label"><span class="hc-dot"></span>Реклама ROI</span><span class="hc-val up">×2.4</span></div>
     </div>
+  </div>
+
+  <!-- bottom gradient wave -->
+  <div class="hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="waveGrad1" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%"  stop-color="#6E4BFF" stop-opacity=".55"/>
+          <stop offset="45%" stop-color="#2B5FFF" stop-opacity=".35"/>
+          <stop offset="75%" stop-color="#FFB547" stop-opacity=".55"/>
+          <stop offset="100%" stop-color="#FF6A3D" stop-opacity=".4"/>
+        </linearGradient>
+        <linearGradient id="waveGrad2" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%"  stop-color="#FFB547" stop-opacity=".25"/>
+          <stop offset="50%" stop-color="#6E4BFF" stop-opacity=".4"/>
+          <stop offset="100%" stop-color="#2B5FFF" stop-opacity=".25"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,90 C240,40 480,130 720,80 C960,30 1200,110 1440,60 L1440,140 L0,140 Z" fill="url(#waveGrad2)"/>
+      <path d="M0,110 C240,70 480,150 720,100 C960,50 1200,130 1440,80 L1440,140 L0,140 Z" fill="url(#waveGrad1)"/>
+    </svg>
   </div>
 </section>
 
@@ -1327,6 +1495,57 @@
         <span>Уведомления</span>
         <span class="live-dot">live</span>
       </div>
+
+      <!-- AI orb visualization -->
+      <div class="ai-orb-wrap" aria-hidden="true">
+        <div class="ai-orb">
+          <svg viewBox="-150 -150 300 300">
+            <defs>
+              <radialGradient id="orbCore" cx="0" cy="0" r="0.5">
+                <stop offset="0%"  stop-color="#FFD88A" stop-opacity="1"/>
+                <stop offset="50%" stop-color="#FFB547" stop-opacity=".6"/>
+                <stop offset="100%" stop-color="#6E4BFF" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%"  stop-color="#6E4BFF"/>
+                <stop offset="50%" stop-color="#FFB547"/>
+                <stop offset="100%" stop-color="#2B5FFF"/>
+              </linearGradient>
+            </defs>
+            <!-- glow core -->
+            <circle class="core" r="28" fill="url(#orbCore)"/>
+            <!-- outer ring (slow CW) -->
+            <g class="ring-a">
+              <circle r="110" fill="none" stroke="url(#ringGrad)" stroke-width="1.2" stroke-dasharray="2 6" opacity=".85"/>
+              <circle cx="110" cy="0"  r="3" fill="#FFD88A"/>
+              <circle cx="-95" cy="45"  r="2" fill="#6E4BFF"/>
+              <circle cx="40"  cy="-102" r="2.2" fill="#2B5FFF"/>
+            </g>
+            <!-- mid ring (CCW) -->
+            <g class="ring-b">
+              <ellipse rx="88" ry="22" fill="none" stroke="rgba(255,181,71,.55)" stroke-width="1"/>
+              <circle cx="88" cy="0" r="2.5" fill="#FFB547"/>
+              <circle cx="-88" cy="0" r="1.8" fill="#FF6A3D"/>
+            </g>
+            <!-- tilted ring (CW fast) -->
+            <g class="ring-c" transform="rotate(55)">
+              <ellipse rx="70" ry="18" fill="none" stroke="rgba(110,75,255,.6)" stroke-width="1"/>
+              <circle cx="70" cy="0" r="2" fill="#6E4BFF"/>
+              <circle cx="-58" cy="0" r="1.6" fill="#FFD88A"/>
+            </g>
+            <!-- scatter dots -->
+            <g opacity=".6">
+              <circle cx="0"   cy="-128" r="1.5" fill="#FFD88A"/>
+              <circle cx="132" cy="-22"  r="1.5" fill="#6E4BFF"/>
+              <circle cx="-120" cy="60"  r="1.3" fill="#FFB547"/>
+              <circle cx="60"  cy="118"  r="1.4" fill="#2B5FFF"/>
+              <circle cx="-80" cy="-100" r="1.2" fill="#FF6A3D"/>
+            </g>
+          </svg>
+          <div class="ai-orb-label">всевидящее око · live</div>
+        </div>
+      </div>
+
       <div class="alert-row" data-d="0.2"><div class="alert-ico err">!</div><div class="alert-body"><div class="alert-t">Артикул 12847 закончится через 4 дня</div><div class="alert-d">Нужна поставка минимум 60 единиц</div></div><div class="alert-time">12:04</div></div>
       <div class="alert-row" data-d="0.4"><div class="alert-ico warn">↓</div><div class="alert-body"><div class="alert-t">3 конкурента снизили на 8–12%</div><div class="alert-d">Рекомендую 1 490 ₽ — сохранит маржу</div></div><div class="alert-time">11:52</div></div>
       <div class="alert-row" data-d="0.6"><div class="alert-ico ok">✓</div><div class="alert-body"><div class="alert-t">Ответил на 14 отзывов автоматически</div><div class="alert-d">2 помечены как системная проблема</div></div><div class="alert-time">11:30</div></div>
@@ -1352,6 +1571,20 @@
     <div id="chatMsgs"></div>
   </div>
 </section>
+
+<div class="sec-wave" aria-hidden="true">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="secWaveA" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0%"  stop-color="#6E4BFF" stop-opacity=".1"/>
+        <stop offset="50%" stop-color="#FFB547" stop-opacity=".18"/>
+        <stop offset="100%" stop-color="#2B5FFF" stop-opacity=".1"/>
+      </linearGradient>
+    </defs>
+    <path d="M0,70 C240,30 480,100 720,60 C960,20 1200,90 1440,50 L1440,120 L0,120 Z" fill="url(#secWaveA)"/>
+    <path d="M0,90 C240,60 480,120 720,80 C960,40 1200,110 1440,70" stroke="url(#secWaveA)" stroke-width="1.2" fill="none" opacity=".9"/>
+  </svg>
+</div>
 
 <section class="section" id="plans">
   <div class="reveal">
@@ -1405,6 +1638,19 @@
     <div class="faq reveal"><div class="faq-q">Как быстро будет первый результат?<span class="faq-ic">+</span></div><div class="faq-a">В первый день — отчёт по зонам риска: где теряется маржа, что скоро закончится, какие кампании неэффективны. Изменения в метриках видны через 1–2 недели.</div></div>
   </div>
 </section>
+
+<div class="sec-wave" aria-hidden="true">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="secWaveB" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0%"  stop-color="#FFB547" stop-opacity=".15"/>
+        <stop offset="50%" stop-color="#6E4BFF" stop-opacity=".22"/>
+        <stop offset="100%" stop-color="#FF6A3D" stop-opacity=".15"/>
+      </linearGradient>
+    </defs>
+    <path d="M0,60 C240,100 480,20 720,70 C960,110 1200,40 1440,80 L1440,120 L0,120 Z" fill="url(#secWaveB)"/>
+  </svg>
+</div>
 
 <section class="final" id="final">
   <div class="final-inner">
