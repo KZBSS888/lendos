@@ -53,6 +53,29 @@
   @keyframes meshA { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,-50px) scale(1.15); } }
   @keyframes meshB { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-70px,-60px) scale(1.2); } }
   @keyframes meshC { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(80px,50px) scale(1.1); } }
+  /* Aurora mesh — плавный дрейф крупных blur-пятен */
+  @keyframes auroraA {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%      { transform: translate(38vw, 28vh) scale(1.18); }
+    66%      { transform: translate(-8vw, 46vh) scale(0.92); }
+  }
+  @keyframes auroraB {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-42vw, 32vh) scale(1.28); }
+  }
+  @keyframes auroraC {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    40%      { transform: translate(24vw, -30vh) scale(1.12); }
+    70%      { transform: translate(-18vw, -12vh) scale(1.22); }
+  }
+  @keyframes auroraD {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(18vw, -26vh) scale(1.32); }
+  }
+  @keyframes auroraE {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-22vw, -22vh) scale(1.18); }
+  }
   @keyframes floatCoin { 0% { transform: translateY(110vh) rotate(0); opacity: 0; } 10% { opacity: .9; } 90% { opacity: .9; } 100% { transform: translateY(-20vh) rotate(720deg); opacity: 0; } }
   @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   @keyframes barGrow { from { height: 0; } to { height: var(--h); } }
@@ -307,13 +330,16 @@
   }
   .mesh {
     position: absolute; z-index: 0;
-    filter: blur(80px); opacity: .85;
+    filter: blur(110px);
     border-radius: 50%;
+    mix-blend-mode: screen;
+    will-change: transform;
   }
-  .mesh-a { width: 620px; height: 620px; background: var(--violet); top: -12%; left: -12%; animation: meshA 18s ease-in-out infinite; opacity: .95; }
-  .mesh-b { width: 680px; height: 680px; background: var(--indigo); top: 15%; right: -18%; animation: meshB 22s ease-in-out infinite; opacity: .8; }
-  .mesh-c { width: 520px; height: 520px; background: var(--amber); bottom: -22%; left: 30%; animation: meshC 16s ease-in-out infinite; opacity: .65; }
-  .mesh-d { width: 340px; height: 340px; background: var(--ember); top: 45%; right: 10%; animation: meshA 20s ease-in-out infinite reverse; opacity: .45; filter: blur(90px); border-radius: 50%; position: absolute; z-index: 0; }
+  .mesh-a { width: 720px; height: 720px; background: var(--violet);      top: -15%;  left: -12%;  animation: auroraA 24s ease-in-out infinite; opacity: .80; }
+  .mesh-b { width: 680px; height: 680px; background: var(--amber);       top: 18%;   right: -10%; animation: auroraB 28s ease-in-out infinite; opacity: .60; }
+  .mesh-c { width: 820px; height: 820px; background: var(--violet-deep); bottom: -28%; left: 15%; animation: auroraC 32s ease-in-out infinite; opacity: .75; }
+  .mesh-d { width: 460px; height: 460px; background: #ec4899;            top: 40%;   left: 45%;   animation: auroraD 26s ease-in-out infinite; opacity: .42; filter: blur(110px); border-radius: 50%; position: absolute; z-index: 0; mix-blend-mode: screen; }
+  .mesh-e { width: 560px; height: 560px; background: var(--indigo);      top: 52%;   right: 22%;  animation: auroraE 30s ease-in-out infinite; opacity: .52; filter: blur(110px); border-radius: 50%; position: absolute; z-index: 0; mix-blend-mode: screen; }
   .grid-bg {
     position: absolute; inset: 0; z-index: 1;
     background-image:
@@ -1107,59 +1133,22 @@
     .cursor-dot { display: block; }
   }
 
-  /* ============ [NEW] RADIAL FAN RAYS (NexaCore-style light beams in hero) ============ */
-  @keyframes raysRotate { to { transform: translate(-50%, 0) rotate(360deg); } }
-  @keyframes raysPulse  { 0%, 100% { opacity: .55; } 50% { opacity: .85; } }
-  .rays {
-    position: absolute;
-    top: 8%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: min(1600px, 140vw);
-    height: min(1600px, 140vw);
-    z-index: 1;
+  /* ============ AURORA GRAIN (subtle noise overlay) ============ */
+  .aurora-grain {
+    position: absolute; inset: 0; z-index: 1;
     pointer-events: none;
-    background:
-      conic-gradient(
-        from 210deg at 50% 50%,
-        transparent 0deg,
-        rgba(110,75,255,.22) 14deg,
-        transparent 28deg,
-        rgba(43,95,255,.18) 44deg,
-        transparent 62deg,
-        rgba(255,181,71,.26) 86deg,
-        transparent 106deg,
-        rgba(255,106,61,.18) 122deg,
-        transparent 140deg,
-        rgba(203,17,171,.16) 158deg,
-        transparent 178deg,
-        rgba(110,75,255,.2) 198deg,
-        transparent 220deg,
-        rgba(43,95,255,.14) 246deg,
-        transparent 268deg,
-        rgba(255,181,71,.18) 292deg,
-        transparent 312deg,
-        rgba(110,75,255,.16) 336deg,
-        transparent 360deg
-      );
-    -webkit-mask: radial-gradient(circle at 50% 35%, #000 10%, rgba(0,0,0,.8) 30%, transparent 75%);
-            mask: radial-gradient(circle at 50% 35%, #000 10%, rgba(0,0,0,.8) 30%, transparent 75%);
-    filter: blur(16px);
-    animation: raysRotate 90s linear infinite, raysPulse 8s ease-in-out infinite;
-    opacity: .7;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.55'/></svg>");
+    opacity: .08;
+    mix-blend-mode: overlay;
   }
-  .rays::after {
-    /* hot core flare */
-    content: "";
-    position: absolute;
-    left: 50%; top: 38%;
-    transform: translate(-50%, -50%);
-    width: 34%; height: 34%;
-    background: radial-gradient(circle, rgba(255,216,138,.6), rgba(255,181,71,.25) 35%, transparent 70%);
-    border-radius: 50%;
-    filter: blur(20px);
-    animation: raysPulse 5s ease-in-out infinite;
+  /* Лёгкая виньетка по краям HERO для глубины */
+  .hero-vignette {
+    position: absolute; inset: 0; z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(11,0,20,.55) 100%);
   }
+  /* Rays выключены в варианте Aurora Mesh */
+  .rays { display: none; }
 
   /* ============ [NEW] HERO BOTTOM WAVE ============ */
   .hero-wave {
@@ -1240,8 +1229,9 @@
   .ticker-track .hl { color: var(--amber); }
   .ticker-track .sep { color: var(--violet); }
 
-  /* Soften hero coins so they don't compete with rays */
-  .coins { opacity: .35; }
+  /* Hide hero coins and grid — clean Aurora look */
+  .hero .coins { display: none; }
+  .hero .grid-bg { opacity: .35; mask-image: radial-gradient(ellipse at center, #000 10%, transparent 70%); }
 </style>
 </head>
 <body>
@@ -1265,7 +1255,9 @@
   <div class="mesh mesh-b"></div>
   <div class="mesh mesh-c"></div>
   <div class="mesh-d"></div>
-  <div class="rays" aria-hidden="true"></div>
+  <div class="mesh-e"></div>
+  <div class="aurora-grain" aria-hidden="true"></div>
+  <div class="hero-vignette" aria-hidden="true"></div>
   <div class="grid-bg"></div>
   <div class="coins" id="coins"></div>
 
