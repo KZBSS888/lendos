@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Согласие на обработку ПДн и cookies — ai007.io</title>
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --violet:#6E4BFF; --amber:#FFB547; --text:#E8E6F0; --muted:#9A94AD; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #080012; color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse 800px 600px at 15% 10%, rgba(110,75,255,.18), transparent 55%), radial-gradient(ellipse 700px 500px at 85% 90%, rgba(255,181,71,.12), transparent 55%); filter: blur(40px); }
+  .doc-nav { position: relative; z-index: 1; padding: 22px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid rgba(255,255,255,.06); backdrop-filter: blur(14px); background: rgba(8,0,18,.6); }
+  .doc-nav .logo { font-family: 'Bricolage Grotesque', sans-serif; font-variation-settings: "wdth" 90, "opsz" 96; font-weight: 700; font-size: 18px; color: #fff; letter-spacing: -.02em; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .doc-nav .logo::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--violet), var(--amber)); box-shadow: 0 0 12px var(--violet); }
+  .doc-nav a.back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: .04em; }
+  .doc-nav a.back:hover { color: #fff; }
+  .doc-wrap { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 72px 32px 120px; }
+  .doc-kick { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--amber); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .doc-kick::before { content: ""; width: 22px; height: 1px; background: var(--amber); }
+  .doc-title { font-family: 'Bricolage Grotesque', sans-serif; font-variation-settings: "wdth" 90, "opsz" 96; font-weight: 700; font-size: clamp(32px, 4.2vw, 52px); letter-spacing: -.025em; line-height: 1.05; margin-bottom: 14px; color: #fff; }
+  .doc-meta { color: var(--muted); font-size: 13px; margin-bottom: 48px; font-family: 'JetBrains Mono', monospace; letter-spacing: .02em; }
+  h2 { font-family: 'Bricolage Grotesque', sans-serif; font-variation-settings: "wdth" 92, "opsz" 72; font-weight: 700; font-size: 22px; color: #fff; margin-top: 44px; margin-bottom: 14px; letter-spacing: -.01em; }
+  h3 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 16.5px; color: #fff; margin-top: 24px; margin-bottom: 10px; }
+  p { color: rgba(232,230,240,.82); font-size: 15.5px; line-height: 1.68; margin-bottom: 12px; }
+  ul, ol { margin: 6px 0 14px 22px; }
+  li { color: rgba(232,230,240,.82); font-size: 15.5px; line-height: 1.65; margin-bottom: 7px; }
+  strong, b { color: #fff; font-weight: 600; }
+  a { color: var(--violet); text-decoration: none; border-bottom: 1px dashed rgba(110,75,255,.5); transition: color .2s, border-color .2s; }
+  a:hover { color: var(--amber); border-bottom-color: var(--amber); }
+  .cookies-table { width: 100%; margin: 14px 0 22px; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .cookies-table th, .cookies-table td { text-align: left; padding: 10px 12px; border-bottom: 0.5px solid rgba(255,255,255,.08); }
+  .cookies-table th { color: var(--muted); font-weight: 500; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  .cookies-table td { color: rgba(232,230,240,.82); vertical-align: top; }
+  .cookies-table td:first-child { color: #fff; }
+  .req-box { margin-top: 64px; padding: 24px 26px; border-radius: 16px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); }
+  .req-box h3 { margin-top: 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .req-box dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .req-box dt { color: var(--muted); }
+  .req-box dd { color: #fff; }
+  .doc-foot { margin-top: 48px; padding-top: 28px; border-top: 0.5px solid rgba(255,255,255,.08); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+  .doc-foot a { color: var(--muted); border-bottom: 0; }
+  .doc-foot a:hover { color: #fff; }
+</style>
+</head>
+<body>
+
+<nav class="doc-nav">
+  <a href="/" class="logo">ai007.io</a>
+  <a href="/" class="back">← На главную</a>
+</nav>
+
+<main class="doc-wrap">
+
+  <div class="doc-kick">Документ 04 / 04</div>
+  <h1 class="doc-title">Согласие на обработку персональных данных и использование cookies</h1>
+  <div class="doc-meta">Редакция от 22.04.2026 · Действует на ai007.io</div>
+
+  <p>Настоящее согласие дано пользователем (далее — <strong>Субъект</strong>) в отношении оператора <strong>[ООО «Название»]</strong> (далее — <strong>Оператор</strong>) в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».</p>
+
+  <h2>Часть I. Согласие на обработку персональных данных</h2>
+
+  <h3>1. Предмет согласия</h3>
+  <p>Субъект даёт Оператору согласие на обработку следующих категорий своих персональных данных:</p>
+  <ul>
+    <li>фамилия, имя, отчество (при предоставлении);</li>
+    <li>адрес электронной почты;</li>
+    <li>номер телефона;</li>
+    <li>Telegram ID, username;</li>
+    <li>сведения об организации (наименование, ИНН) — при использовании Сервиса от имени юридического лица;</li>
+    <li>API-токен личного кабинета Wildberries;</li>
+    <li>IP-адрес, user-agent, cookie-идентификаторы, метки устройства;</li>
+    <li>данные о платежах (сумма, идентификатор транзакции, маскированные реквизиты карты).</li>
+  </ul>
+
+  <h3>2. Перечень действий</h3>
+  <p>Субъект соглашается на сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (предоставление, доступ) процессорам, обезличивание, блокирование, удаление и уничтожение персональных данных.</p>
+  <p>Обработка осуществляется как с использованием средств автоматизации, так и без них.</p>
+
+  <h3>3. Цели</h3>
+  <ul>
+    <li>предоставление доступа к функциям Сервиса;</li>
+    <li>выполнение договора, заключённого на основании <a href="/offer.html">Публичной оферты</a>;</li>
+    <li>коммуникация с Субъектом по каналам связи;</li>
+    <li>аналитика, улучшение качества Сервиса и клиентская поддержка;</li>
+    <li>соблюдение требований законодательства.</li>
+  </ul>
+
+  <h3>4. Срок действия согласия</h3>
+  <p>Согласие действует до момента его отзыва. Отзыв направляется письменно на <a href="mailto:privacy@ai007.io">privacy@ai007.io</a> либо через встроенную функцию удаления учётной записи.</p>
+  <p>При отзыве согласия Оператор прекращает обработку в срок до 30 дней, за исключением данных, обработка которых обязательна в силу закона (бухгалтерская отчётность и т.п.).</p>
+
+  <h3>5. Передача третьим лицам</h3>
+  <p>Субъект соглашается с передачей персональных данных обработчикам (процессорам), перечисленным в <a href="/privacy.html">Политике конфиденциальности</a>, для целей, указанных в п. 3.</p>
+
+  <h2>Часть II. Согласие на использование cookies</h2>
+
+  <h3>6. Что такое cookies</h3>
+  <p>Cookies — небольшие текстовые файлы, которые сайт сохраняет в браузере Субъекта. Они помогают запоминать действия и предпочтения пользователя, обеспечивают корректную работу личного кабинета и сбор анонимной аналитики.</p>
+
+  <h3>7. Какие cookies используются</h3>
+  <table class="cookies-table">
+    <thead><tr><th>Категория</th><th>Назначение</th><th>Срок</th></tr></thead>
+    <tbody>
+      <tr><td>Технические</td><td>Сессионные cookies: аутентификация, хранение выбранного языка и темы, защита от CSRF</td><td>до 12 мес</td></tr>
+      <tr><td>Аналитические</td><td>Яндекс.Метрика — анонимная статистика посещений, поведение на страницах</td><td>до 24 мес</td></tr>
+      <tr><td>Функциональные</td><td>Хранение состояния cookie-баннера, рекламных согласий</td><td>до 12 мес</td></tr>
+      <tr><td>Маркетинговые</td><td>Используются только после явного согласия: ретаргетинг, attribution</td><td>до 12 мес</td></tr>
+    </tbody>
+  </table>
+
+  <h3>8. Управление cookies</h3>
+  <p>Субъект может управлять cookies через настройки своего браузера — отключать, удалять, блокировать отдельные категории. Отключение технических cookies может привести к частичной неработоспособности Сервиса.</p>
+  <p>Полная информация по настройке cookies в популярных браузерах:</p>
+  <ul>
+    <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+    <li><a href="https://support.mozilla.org/ru/kb/vklyuchenie-i-otklyuchenie-kukov-fajlov-cookie-v-brauzere" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+    <li><a href="https://support.apple.com/ru-ru/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+    <li><a href="https://yandex.ru/support/browser/security/cookies.html" target="_blank" rel="noopener">Яндекс.Браузер</a></li>
+  </ul>
+
+  <h2>Часть III. Права Субъекта</h2>
+
+  <p>Субъект вправе:</p>
+  <ul>
+    <li>получать сведения об обработке своих персональных данных;</li>
+    <li>требовать уточнения, блокирования или удаления данных, если они неполны, устарели или обрабатываются неправомерно;</li>
+    <li>отозвать настоящее согласие в любой момент;</li>
+    <li>обжаловать действия Оператора в Роскомнадзор или в суд.</li>
+  </ul>
+
+  <p>Все запросы — на <a href="mailto:privacy@ai007.io">privacy@ai007.io</a>. Срок рассмотрения — до 30 дней.</p>
+
+  <div class="req-box">
+    <h3>Реквизиты оператора</h3>
+    <dl>
+      <dt>Наименование</dt><dd>[ООО «Название»]</dd>
+      <dt>ОГРН</dt><dd>[1234567890123]</dd>
+      <dt>ИНН / КПП</dt><dd>[1234567890 / 123456789]</dd>
+      <dt>Юр. адрес</dt><dd>[индекс, регион, город, улица, дом, офис]</dd>
+      <dt>Email</dt><dd>privacy@ai007.io</dd>
+      <dt>Сайт</dt><dd>ai007.io</dd>
+    </dl>
+  </div>
+
+  <div class="doc-foot">
+    <span>© 2026 ai007.io</span>
+    <span>
+      <a href="/privacy.html">Политика</a> ·
+      <a href="/terms.html">Соглашение</a> ·
+      <a href="/offer.html">Оферта</a>
+    </span>
+  </div>
+
+</main>
+</body>
+</html>
