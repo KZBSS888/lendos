@@ -1909,20 +1909,7 @@
     .footer-links { grid-template-columns: 1fr; }
   }
 
-  /* cursor */
-  .cursor-dot {
-    position: fixed; top: 0; left: 0;
-    width: 16px; height: 16px;
-    border-radius: 50%;
-    background: var(--wb);
-    pointer-events: none; z-index: 9999;
-    mix-blend-mode: exclusion;
-    transition: transform .15s;
-    display: none;
-  }
-  @media (hover: hover) and (pointer: fine) {
-    .cursor-dot { display: block; }
-  }
+  /* custom cursor dot removed */
 
   /* ============ AURORA GRAIN (subtle noise overlay) ============ */
   .aurora-grain {
@@ -2023,7 +2010,6 @@
 </head>
 <body>
 
-<div class="cursor-dot" id="cursor"></div>
 
 <nav class="topnav" id="topnav">
   <div class="logo"><span class="logo-dot"></span>WB AI Agent</div>
@@ -2786,8 +2772,6 @@
           Telegram
         </a>
         <a href="mailto:hello@ai007.io">hello@ai007.io</a>
-        <a href="mailto:billing@ai007.io">billing@ai007.io</a>
-        <a href="mailto:privacy@ai007.io">privacy@ai007.io</a>
       </div>
     </div>
   </div>
@@ -3133,21 +3117,7 @@ function playChat(){
   }
 }
 
-// ============ Custom cursor ============
-var cursor = document.getElementById('cursor');
-if (cursor){
-  document.addEventListener('mousemove', function(e){
-    cursor.style.transform = 'translate(' + (e.clientX - 8) + 'px,' + (e.clientY - 8) + 'px)';
-  });
-  document.querySelectorAll('button, a, .faq-q, .pain, .feat, .plan').forEach(function(el){
-    el.addEventListener('mouseenter', function(){
-      cursor.style.transform += ' scale(2.5)';
-    });
-    el.addEventListener('mouseleave', function(){
-      cursor.style.transform = cursor.style.transform.replace(' scale(2.5)', '');
-    });
-  });
-}
+// custom cursor removed
 </script>
 </body>
 </html>
