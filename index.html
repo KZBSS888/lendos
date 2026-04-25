@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WB AI Agent — ИИ-ассистент для продавцов на Wildberries</title>
+<title>AI007 — ИИ-агенты для маркетплейсов</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+<meta name="theme-color" content="#0B0014">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -280,34 +284,108 @@
   @keyframes glowSweep { to { left: 100%; } }
 
   /* ============ NAV ============ */
+  /* Топнав использует тот же тон, что и заливка логотипа (~#060413),
+     чтобы PNG-логотип бесшовно «вливался» в шапку на любой секции. */
   nav.topnav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 24px 40px;
+    padding: 18px 40px;
     display: flex; align-items: center; justify-content: space-between;
-    background: rgba(11,0,20,.28);
+    background: rgba(6,4,19,.92);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border-bottom: 1px solid rgba(255,255,255,.06);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
-    transition: padding .3s, background .3s, backdrop-filter .3s;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 8px 32px rgba(0,0,0,.18);
+    transition: padding .3s, background .3s, backdrop-filter .3s, box-shadow .3s;
   }
   nav.topnav.scrolled {
-    padding: 16px 40px;
-    background: rgba(11,0,20,.5);
+    padding: 14px 40px;
+    background: rgba(6,4,19,.97);
     backdrop-filter: blur(36px) saturate(180%);
     -webkit-backdrop-filter: blur(36px) saturate(180%);
+    box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 48px rgba(0,0,0,.32);
   }
   .logo {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-weight: 700; font-size: 20px;
-    color: #fff; letter-spacing: -0.02em;
-    display: flex; align-items: center; gap: 10px;
+    display: inline-flex; align-items: center;
+    text-decoration: none;
+    transition: transform .3s ease;
   }
-  .logo-dot {
-    width: 11px; height: 11px; border-radius: 50%;
-    background: var(--wb);
-    box-shadow: 0 0 16px var(--wb);
-    animation: pulse 2s infinite;
+  .logo:hover { transform: translateY(-1px); }
+  /* Сцена-обёртка для статики и видео — фиксируем размер, чтобы они стекались поверх друг друга */
+  .logo-stage {
+    position: relative;
+    display: inline-block;
+    height: 56px;
+    line-height: 0;
+  }
+  .logo-img,
+  .logo-video {
+    display: block;
+    height: 100%;
+    width: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .logo-img {
+    transition: opacity .35s ease;
+    position: relative;
+    z-index: 1;
+  }
+  /* Видео занимает то же самое место — лежит поверх статичного wordmark */
+  .logo-video {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    object-fit: contain;
+    object-position: left center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .35s ease;
+    z-index: 2;
+  }
+  /* Crossfade: при скролле статика исчезает, видео появляется на её месте */
+  nav.topnav.scrolled .logo-img { opacity: 0; }
+  nav.topnav.scrolled .logo-video { opacity: 1; }
+  @media (max-width: 768px) {
+    .logo-stage { height: 44px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-video { display: none; }
+    nav.topnav.scrolled .logo-img { opacity: 1; }
+  }
+  /* Legacy classes (kept for backward CSS compat — unused) */
+  .logo-dot, .logo-mark { display: none; }
+
+  /* ============ TRUST BADGE «Данные у вас» ============ */
+  .trust-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 9px 18px;
+    border: 0.5px solid rgba(255,255,255,.16);
+    background: rgba(255,255,255,.04);
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: rgba(255,255,255,.86);
+    user-select: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .trust-badge::before {
+    content: ''; flex-shrink: 0;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #5DE09C;
+    box-shadow: 0 0 8px rgba(93,224,156,.6);
+    animation: trustPulse 2.6s ease-in-out infinite;
+  }
+  @keyframes trustPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 8px rgba(93,224,156,.6); }
+    50%      { transform: scale(1.25); box-shadow: 0 0 16px rgba(93,224,156,.85); }
+  }
+  /* Variants */
+  .trust-badge--center { display: inline-flex; }
+  .trust-row { display: flex; justify-content: center; margin: 24px 0 8px; }
+  @media (prefers-reduced-motion: reduce) {
+    .trust-badge::before { animation: none; }
   }
   .nav-links { display: flex; gap: 32px; }
   .nav-links a {
@@ -408,7 +486,7 @@
   h1.mega {
     font-family: 'Bricolage Grotesque', sans-serif;
     font-variation-settings: "wdth" 90, "opsz" 96;
-    font-size: clamp(52px, 7.6vw, 96px);
+    font-size: clamp(40px, 6vw, 72px);
     font-weight: 700;
     color: #fff;
     line-height: 1.02;
@@ -436,10 +514,10 @@
     animation: strikeIn 1s 1.2s cubic-bezier(.7,0,.2,1) forwards;
   }
   .hero-sub {
-    font-size: clamp(18px, 1.8vw, 22px);
+    font-size: clamp(16px, 1.5vw, 18px);
     color: rgba(255,255,255,.72);
     line-height: 1.6;
-    max-width: 580px;
+    max-width: 540px;
     margin-bottom: 40px;
     animation: fadeUp .9s .3s both;
   }
@@ -1864,8 +1942,10 @@
   .final-micro strong { color: rgba(255,255,255,.78); font-weight: 600; }
 
   /* ============ FOOTER ============ */
+  /* Фон футера ровно равен заливке wordmark-логотипа (#060413),
+     чтобы PNG-лого не давал видимой рамки на фоне футера. */
   footer {
-    background: #000;
+    background: #060413;
     padding: 72px 32px 40px;
     color: rgba(255,255,255,.5);
     font-size: 13px;
@@ -1879,16 +1959,14 @@
   }
   .footer-brand { }
   .footer-logo {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-variation-settings: "wdth" 90, "opsz" 96;
-    font-weight: 700; font-size: 22px; color: #fff;
-    letter-spacing: -.02em; margin-bottom: 6px;
-    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 14px;
+    display: flex; align-items: center;
   }
-  .footer-logo::before {
-    content: ""; width: 10px; height: 10px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--wb-purple), var(--yellow));
-    box-shadow: 0 0 12px var(--wb-purple);
+  .footer-logo .logo-img {
+    height: 64px; width: auto;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
   }
   .footer-tag { font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 18px; max-width: 260px; line-height: 1.5; }
   .footer-copy {
@@ -2034,7 +2112,14 @@
 
 
 <nav class="topnav" id="topnav">
-  <div class="logo"><span class="logo-dot"></span>WB AI Agent</div>
+  <a href="#top" class="logo" aria-label="AI007 — главная">
+    <span class="logo-stage">
+      <img class="logo-img" src="assets/ai007_wordmark.png" alt="AI007 — AI Agents Platform">
+      <video class="logo-video" id="logoVideo" muted playsinline preload="metadata" aria-hidden="true">
+        <source src="assets/mascot_animation.mp4" type="video/mp4">
+      </video>
+    </span>
+  </a>
   <div class="nav-links">
     <a href="#pains">Боли</a>
     <a href="#features">Возможности</a>
@@ -2060,7 +2145,7 @@
     <div class="hero-left">
       <div class="eyebrow">
         <span class="eyebrow-dot"></span>
-        <span>Wildberries · AI Agent</span>
+        <span>Wildberries · ИИ-агент</span>
         <span class="eyebrow-num">v 1.0</span>
       </div>
       <h1 class="mega">
@@ -2192,7 +2277,7 @@
   <div class="dissolve-label">Подключение к кабинету · API WB</div>
 </div>
 
-<div class="ticker" aria-label="Возможности AI-агента">
+<div class="ticker" aria-label="Возможности ИИ-агента">
   <div class="ticker-track">
     <span class="ticker-pill"><span class="ticker-ico">₽</span>Контроль цен 24/7</span>
     <span class="ticker-pill stat"><span class="ticker-ico">↑</span>+34% выручка</span>
@@ -2654,7 +2739,7 @@
     <div class="chat-header">
       <div class="chat-avatar">AI</div>
       <div>
-        <div class="chat-name">WB AI Agent</div>
+        <div class="chat-name">WB ИИ-агент</div>
         <div class="chat-status">онлайн</div>
       </div>
     </div>
@@ -2784,6 +2869,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.6-6.4"/><path d="M3 3v6h6"/></svg>
         Отмена в 1 клик
       </span>
+      <span class="trust-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>
+        Данные у вас
+      </span>
     </div>
 
     <div class="final-ctas">
@@ -2801,8 +2890,10 @@
 <footer>
   <div class="footer-in">
     <div class="footer-brand">
-      <div class="footer-logo">ai007.io</div>
-      <div class="footer-tag">AI-агент для продавцов Wildberries</div>
+      <div class="footer-logo">
+        <img class="logo-img" src="assets/ai007_wordmark.png" alt="AI007 — AI Agents Platform">
+      </div>
+      <div class="footer-tag">ИИ-агент для продавцов Wildberries</div>
       <div class="footer-copy">© 2026 ai007.io<br>Приём платежей: ООО «ИСТ» · ОГРН 1067746514384 · ИНН 7723568863<br>129626, г. Москва, ул. Новоалексеевская, д. 16, к. 2, помещ. 286</div>
     </div>
     <div class="footer-links">
@@ -3120,9 +3211,27 @@ document.querySelectorAll('.faq-q').forEach(function(q){
 
 // ============ Nav scroll ============
 var nav = document.getElementById('topnav');
+var logoVideo = document.getElementById('logoVideo');
+var navWasScrolled = false;
 window.addEventListener('scroll', function(){
-  if (window.scrollY > 40) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
+  var isScrolled = window.scrollY > 40;
+  if (isScrolled) {
+    nav.classList.add('scrolled');
+    // Маскот «вылезает» — стартуем видео заново при каждом «вылезании»
+    if (logoVideo && !navWasScrolled) {
+      logoVideo.muted = true;
+      logoVideo.currentTime = 0;
+      logoVideo.play().catch(function(){ /* iOS / autoplay-блок: молча игнорим */ });
+    }
+    navWasScrolled = true;
+  } else {
+    nav.classList.remove('scrolled');
+    // Возврат к верху — паузим видео, чтобы экономить ресурсы
+    if (logoVideo && navWasScrolled) {
+      logoVideo.pause();
+    }
+    navWasScrolled = false;
+  }
 });
 
 // ============ Scroll to ============
@@ -3139,12 +3248,12 @@ function playChat(){
   var container = document.getElementById('chatMsgs');
   var script = [
     { side: 'right', who: 'Продавец', text: 'Что у меня с остатками сейчас?', delay: 500 },
-    { side: 'left', who: 'WB AI Agent', typing: true, text: 'Артикул <strong>12847391</strong> закончится через <strong>4 дня</strong>. Сейчас 18 штук, продажи 4–5 в день. Рекомендую поставку <strong>60 единиц</strong>. Подготовить список?', delay: 1200 },
+    { side: 'left', who: 'WB ИИ-агент', typing: true, text: 'Артикул <strong>12847391</strong> закончится через <strong>4 дня</strong>. Сейчас 18 штук, продажи 4–5 в день. Рекомендую поставку <strong>60 единиц</strong>. Подготовить список?', delay: 1200 },
     { side: 'right', who: 'Продавец', text: 'Да. И посмотри цены — конкуренты снизили?', delay: 1400 },
-    { side: 'left', who: 'WB AI Agent', typing: true, text: 'Формирую список поставки… <strong>Готово</strong>: 60 шт на <strong>FBO Коледино</strong>, черновик создан в ЛК WB — ждёт вашего подтверждения. Теперь смотрю цены…', delay: 1400 },
-    { side: 'left', who: 'WB AI Agent', typing: true, text: '3 конкурента снизили на <strong>8–12%</strong> за 2 дня. Ваша цена выше рынка. Предлагаю <strong>1 490 ₽</strong> — сохранит маржу и вернёт позицию. Применить?', delay: 1600 },
+    { side: 'left', who: 'WB ИИ-агент', typing: true, text: 'Формирую список поставки… <strong>Готово</strong>: 60 шт на <strong>FBO Коледино</strong>, черновик создан в ЛК WB — ждёт вашего подтверждения. Теперь смотрю цены…', delay: 1400 },
+    { side: 'left', who: 'WB ИИ-агент', typing: true, text: '3 конкурента снизили на <strong>8–12%</strong> за 2 дня. Ваша цена выше рынка. Предлагаю <strong>1 490 ₽</strong> — сохранит маржу и вернёт позицию. Применить?', delay: 1600 },
     { side: 'right', who: 'Продавец', text: 'Да, применяй', delay: 1400 },
-    { side: 'left', who: 'WB AI Agent', typing: true, text: 'Цена обновлена через API Wildberries: <strong>1 690 ₽ → 1 490 ₽</strong>. На карточке появится через <strong>~15 мин</strong>. Слежу за позицией и маржой — отчёт пришлю в 20:00.', delay: 1400 }
+    { side: 'left', who: 'WB ИИ-агент', typing: true, text: 'Цена обновлена через API Wildberries: <strong>1 690 ₽ → 1 490 ₽</strong>. На карточке появится через <strong>~15 мин</strong>. Слежу за позицией и маржой — отчёт пришлю в 20:00.', delay: 1400 }
   ];
   var t = 0;
   script.forEach(function(m){
